@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "545238979465",
+    "firebase_url": "https://bagtrack-71532.firebaseio.com",
+    "project_id": "bagtrack-71532",
+    "storage_bucket": "bagtrack-71532.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545238979465:android:4747668c54344bb6",
+        "android_client_info": {
+          "package_name": "com.example.abhiyash.bagtrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545238979465-qv9gl5al4m8rr9h6ac6t27hpoc7fkce3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abhiyash.bagtrack",
+            "certificate_hash": "35489ef346446fa8d04ebadcf4546bf862266563"
+          }
+        },
+        {
+          "client_id": "545238979465-rrsasglq0lh1gd6199vgkegq7g9rm2bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVeS3QnXDT0sK7XkDc8Xh_PWMZJ6NjG5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545238979465-rrsasglq0lh1gd6199vgkegq7g9rm2bn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
