@@ -5,19 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.speech.RecognizerIntent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -25,19 +25,24 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.Locale;
+
+public class MainActivity extends Activity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     EditText e1;
     Button b1;
     Firebase fb;
     String s="";
-
+    private final int REQ_CODE_SPEECH_INPUT =100;
+    TextView tv;
+  Button iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
 
 
@@ -52,10 +57,13 @@ public class MainActivity extends AppCompatActivity
         e1=(EditText)findViewById(R.id.editText);
         b1=(Button)findViewById(R.id.button);
         b1.setOnClickListener(this);
+        tv=(TextView)findViewById(R.id.textView3);
+        iv=(Button) findViewById(R.id.button2);
+        iv.setOnClickListener(this);
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Firebase.setAndroidContext(this);
-        fb=new Firebase("https://hackathonapp-52b62.firebaseio.com/ticketandbagno");
+        fb=new Firebase("https://baggage-tracking-fe250.firebaseio.com/T&B");
         startService(new Intent(MainActivity.this,NewService.class));
     }
 
@@ -104,7 +112,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.complain)
         {
-
+            Intent it1=new Intent(MainActivity.this,C1.class);
+            startActivity(it1);
         }
         else if (id == R.id.nav_share)
         {
@@ -123,7 +132,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         s = e1.getText().toString();
-        check();
+        switch(v.getId())
+        {
+            case R.id.button:
+                check();
+                break;
+            case R.id.button2:
+                e1.setText("");
+
+                promptinputsearch();
+                s=e1.getText().toString();
+              //  check();
+                break;
+        }
+
+
 
 
     }
@@ -139,9 +162,9 @@ public class MainActivity extends AppCompatActivity
                     for(DataSnapshot sn:dataSnapshot.getChildren())
                     {
 
-                        CheckerBagId fp=sn.getValue(CheckerBagId.class);
-
-                        String s2=fp.getTicket_id();
+                       // CheckerBagId fp=sn.getValue(CheckerBagId.class);
+                        WorkArey wa=sn.getValue(WorkArey.class);
+                        String s2=wa.ticket_id;
                         System.out.println(s2);
                             if (flag==0)
                             {
@@ -154,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                                     SharedPreferences msh=getSharedPreferences("My", Activity.MODE_PRIVATE);
                                     SharedPreferences.Editor edit=msh.edit();
                                     edit.putString("Ticket_id",s2);
-                                    edit.putString("Baggage_id",fp.baggage_id);
+                                    edit.putString("Baggage_id",wa.bag_id);
                                     edit.commit();
 
                                     break;
@@ -180,4 +203,36 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, ""+e, Toast.LENGTH_SHORT).show();
         }
     }
+private void promptinputsearch(){
+    Intent it=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    it.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    it.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+    it.putExtra(RecognizerIntent.EXTRA_PROMPT,getString(R.string.speech_prompt));
+    try{
+      startActivityForResult(it, REQ_CODE_SPEECH_INPUT);
+    }
+    catch (Exception e)
+    {
+        Toast.makeText(this, ""+e, Toast.LENGTH_SHORT).show();
+    }
 }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode)
+        {
+            case REQ_CODE_SPEECH_INPUT:{
+                if(resultCode==RESULT_OK && null!=data)
+                {
+                    ArrayList<String>result=data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                   tv.setText(result.get(0).toString());
+                    Toast.makeText(this, ""+s, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
+    }
+}
+

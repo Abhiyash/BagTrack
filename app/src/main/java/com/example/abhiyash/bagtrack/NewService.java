@@ -49,11 +49,11 @@ public class NewService extends Service {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     //Toast.makeText(MyService.this, "OnchildAdded", Toast.LENGTH_SHORT).show();
-                    for (DataSnapshot sn : dataSnapshot.getChildren()) {
-                        FetchBagNo fb12 = dataSnapshot.getValue(FetchBagNo.class);
-                        String s4 = fb12.getBaggage_id();
+                    /*for (DataSnapshot sn : dataSnapshot.getChildren()) {
+                       WorkArey2 wa2=dataSnapshot.getValue(WorkArey2.class);
+                       String s4 = wa2.getBag_id();
                         if (s4.equals(s2)) {
-                            String s3 = fb12.getScanner_id();
+                            String s3 = wa2.getScanner_id();
                             if (s3.equals("21")) {
                                 //  Toast.makeText(Tb2.this, s2+""+s3, Toast.LENGTH_SHORT).show();
                                 // c1.setChecked(true);
@@ -71,18 +71,20 @@ public class NewService extends Service {
 
                         }
 
-                    }
+                    }*/
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     //Toast.makeText(MyService.this, "Onchildchanged", Toast.LENGTH_SHORT).show();
                     for (DataSnapshot sn : dataSnapshot.getChildren()) {
-                        FetchBagNo fb13 = dataSnapshot.getValue(FetchBagNo.class);
-                        String s4 = fb13.getBaggage_id();
+
+                        WorkArey2 wa2=dataSnapshot.getValue(WorkArey2.class);
+
+                        String s4 = wa2.bag_id;
                         if (s4.equals(s2)) {
 
-                            String s3 = fb13.getScanner_id();
+                            String s3 = wa2.scanner_id;
                             if (s3.equals("21")) {
                                 //  c1.setChecked(true);
                                 //Toast.makeText(Tb2.this, s2+""+s3, Toast.LENGTH_SHORT).show();

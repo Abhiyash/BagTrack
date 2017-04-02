@@ -5,11 +5,11 @@ package com.example.abhiyash.bagtrack;
  */
 
 public class CheckerBagId{
-    String baggage_id;
+    String bag_id;
     String ticket_id;
 
-    public void setBaggage_id(String baggage_id) {
-        this.baggage_id = baggage_id;
+    public void setBaggage_id(String bag_id) {
+        this.bag_id = bag_id;
     }
 
     public void setTicket_id(String ticket_id) {
@@ -17,7 +17,7 @@ public class CheckerBagId{
     }
 
     public String getBaggage_id() {
-        return baggage_id;
+        return bag_id;
     }
 
     public String getTicket_id() {

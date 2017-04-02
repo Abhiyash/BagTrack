@@ -1,5 +1,6 @@
 package com.example.abhiyash.bagtrack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+
+import com.firebase.client.Firebase;
+
+import java.sql.Connection;
 
 public class C1 extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    EditText e1,e2,e3;
+    Button b1;
+    RadioGroup rg;
+    Firebase fb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +35,6 @@ public class C1 extends AppCompatActivity
         setContentView(R.layout.activity_c1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +44,15 @@ public class C1 extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        e1=(EditText)findViewById(R.id.editText2);
+        e2=(EditText)findViewById(R.id.editText3);
+        e3=(EditText)findViewById(R.id.editText5);
+        b1=(Button)findViewById(R.id.button3);
+        b1.setOnClickListener(this);
+        rg=(RadioGroup)findViewById(R.id.radiogroup);
+
+        Firebase.setAndroidContext(this);
+        fb=new Firebase("https://baggage-tracking-fe250.firebaseio.com/");
     }
 
     @Override
@@ -80,15 +93,13 @@ public class C1 extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        if (id == R.id.track_baggage) {
+            Intent it=new Intent(this,Tb1.class);
+            startActivity(it);
+        } else if (id == R.id.complain) {
+            Intent it1=new Intent(this,C1.class);
+            startActivity(it1);
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -98,4 +109,33 @@ public class C1 extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onClick(View v) {
+String s="",s1="",s2="",s3="";
+        s=e1.getText().toString();
+        s1=e2.getText().toString();
+        s3=e3.getText().toString();
+        switch (rg.getCheckedRadioButtonId())
+        {
+            case R.id.radioButton7:
+                s2="Baggage Lost";
+                break;
+            case R.id.radioButton6:
+                s2="Baggage Mishandled";
+                break;
+            case R.id.radioButton4:
+                s2="Other";
+                break;
+        }
+        ComplainSave cs=new ComplainSave();
+        cs.setTicket_id(s1);
+        cs.setName(s);
+        cs.setComplain(s2);
+        cs.setSuggestion(s3);
+        fb.child("Complaints").child(s1).setValue(cs);
+    }
+
+
+
 }

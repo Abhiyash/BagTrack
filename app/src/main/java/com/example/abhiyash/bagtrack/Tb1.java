@@ -54,7 +54,7 @@ public class Tb1 extends AppCompatActivity
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Firebase.setAndroidContext(this);
-        fb=new Firebase("https://hackathonapp-52b62.firebaseio.com/ScanningHistory");
+        fb=new Firebase("https://baggage-tracking-fe250.firebaseio.com/Scanning_History");
         SharedPreferences sp=getSharedPreferences("My",MODE_PRIVATE);
         st=sp.getString("Baggage_id","");
         System.out.println(""+st);
@@ -102,11 +102,13 @@ public class Tb1 extends AppCompatActivity
 
         if (id == R.id.track_baggage)
         {
-
+            Intent it=new Intent(this,Tb1.class);
+            startActivity(it);
         }
         else if (id == R.id.complain)
         {
-
+            Intent it1=new Intent(Tb1.this,C1.class);
+            startActivity(it1);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -129,27 +131,28 @@ public class Tb1 extends AppCompatActivity
                 {
                     for(DataSnapshot sn:dataSnapshot.getChildren())
                     {
-                        FetchBagNo fb12=dataSnapshot.getValue(FetchBagNo.class);
-                        String s2=fb12.getBaggage_id();
+                        //FetchBagNo fb12=dataSnapshot.getValue(FetchBagNo.class);
+                        WorkArey2 wa2=dataSnapshot.getValue(WorkArey2.class);
+                        String s2=wa2.bag_id;
                         if(s2.equals(st))
                         {
-                            String s3=fb12.getScanner_id();
+                            String s3=wa2.scanner_id;
                             if(s3.equals("21"))
                             {
-                                Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
                                 c1.setChecked(true);
                                 c1.setVisibility(View.VISIBLE);
                             }
                             if(s3.equals("201"))
                             {
-                                Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
                                 c2.setChecked(true);
                                 // c1.isSelected(true);
                                 c2.setVisibility(View.VISIBLE);
                             }
                             if(s3.equals("7"))
                             {
-                                Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
                                 c3.setChecked(true);
                                 // c1.isSelected(true);
                                 c3.setVisibility(View.VISIBLE);
@@ -165,16 +168,23 @@ public class Tb1 extends AppCompatActivity
                 {
                     for(DataSnapshot sn:dataSnapshot.getChildren())
                     {
-                        FetchBagNo fb13=dataSnapshot.getValue(FetchBagNo.class);
-                        String s2=fb13.getBaggage_id();
+                        //FetchBagNo fb13=dataSnapshot.getValue(FetchBagNo.class);
+                        WorkArey2 wa2=dataSnapshot.getValue(WorkArey2.class);
+                        String s2=wa2.bag_id;
+                        System.out.println(""+s2);
                         if(s2.equals(st))
                         {
 
-                            String s3=fb13.getScanner_id();
+                            String s3=wa2.scanner_id;
+                            System.out.println(""+s3);
+                            //String s4;
+//                            s4=s3.substring(5,6);
+                            //System.out.println(""+s4);
+                           // Toast.makeText(Tb1.this, ""+s4, Toast.LENGTH_SHORT).show();
                             if(s3.equals("21"))
                             {
                                 c1.setChecked(true);
-                                Toast.makeText(Tb1.this, s2+"/"+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+"/"+s3, Toast.LENGTH_SHORT).show();
                                 Intent it23=new Intent(Tb1.this,Tb1.class);
                                 PendingIntent pd=PendingIntent.getActivities(Tb1.this,123, new Intent[]{it23},0);
                                 NotificationCompat.Builder b=new NotificationCompat.Builder(Tb1.this);
@@ -190,9 +200,9 @@ public class Tb1 extends AppCompatActivity
                                 c1.setVisibility(View.VISIBLE);
                                 // c1.isSelected(true);
                             }
-                            if(s3.equals("201"))
+                            else if(s3.equals("201"))
                             {
-                                Toast.makeText(Tb1.this, s2+"/"+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+"/"+s3, Toast.LENGTH_SHORT).show();
                                 c2.setChecked(true);
                                 Intent it23=new Intent(Tb1.this,Tb1.class);
                                 PendingIntent pd=PendingIntent.getActivities(Tb1.this,123, new Intent[]{it23},0);
@@ -208,9 +218,9 @@ public class Tb1 extends AppCompatActivity
                                 c2.setVisibility(View.VISIBLE);
                                //  c2.isSelected(true);
                             }
-                            if(s3.equals("7"))
+                            else if(s3.equals("7"))
                             {
-                                Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Tb1.this, s2+""+s3, Toast.LENGTH_SHORT).show();
                                 c3.setChecked(true);
                                 Intent it23=new Intent(Tb1.this,Tb1.class);
                                 PendingIntent pd=PendingIntent.getActivities(Tb1.this,123, new Intent[]{it23},0);

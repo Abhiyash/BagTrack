@@ -28,27 +28,40 @@
             android:textSize="40sp" />
 
         <CheckBox
-            android:text="CheckBox"
-            android:layout_width="match_parent"
+            android:text="Your Bag is being processed"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox4"
-            android:layout_marginTop="30dp"
-            android:textSize="30sp"
-            android:layout_marginBottom="10dp" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:visibility="gone"
+            android:id="@+id/checkBox"
+            android:clickable="false"
+            android:checked="false"
+            android:textSize="24sp" />
 
         <CheckBox
-            android:text="CheckBox"
-            android:layout_width="match_parent"
+            android:text="N number of checkpoint"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox5"
-            android:textSize="30sp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginTop="39dp"
+            android:id="@+id/checkBox2"
+            android:layout_below="@+id/checkBox"
+            android:visibility="gone"
+            android:layout_alignStart="@+id/checkBox"
+            android:clickable="false"
+            android:textSize="25sp" />
 
         <CheckBox
-            android:text="CheckBox"
-            android:layout_width="match_parent"
+            android:text="Final Checkpoint"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox6"
-            android:textSize="30sp" />
+            android:layout_marginTop="35dp"
+            android:id="@+id/checkBox3"
+            android:layout_below="@+id/checkBox2"
+            android:visibility="gone"
+            android:layout_alignStart="@+id/checkBox2"
+            android:clickable="false"
+            android:textSize="25sp" />
     </LinearLayout>
 </RelativeLayout>
