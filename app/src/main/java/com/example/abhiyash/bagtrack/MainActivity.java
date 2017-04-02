@@ -64,7 +64,7 @@ public class MainActivity extends Activity
         StrictMode.setThreadPolicy(policy);
         Firebase.setAndroidContext(this);
         fb=new Firebase("https://baggage-tracking-fe250.firebaseio.com/T&B");
-        startService(new Intent(MainActivity.this,NewService.class));
+        startService(new Intent(MainActivity.this,MyService.class));
     }
 
     @Override

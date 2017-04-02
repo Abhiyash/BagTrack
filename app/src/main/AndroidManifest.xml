@@ -32,16 +32,16 @@
         <activity
             android:name=".C1"
             android:label="@string/title_activity_c1"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <service android:name=".NewService"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".MyService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.example.abhiyash.NewService"></action>
+                <action android:name="com.example.abhiyash.MyService" />
             </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>
